@@ -1,0 +1,38 @@
+# Create a deployment. This will deploy our app on multiple nodes.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: remindmeweb-deployment # name of our deployment
+spec:
+  selector:
+    matchLabels:
+      app: remindmeweb # I'll deploy to all pods that have this label
+  replicas: 2 # run our app on 2 pods please!
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: remindmeweb # Label of the pods created by this template
+    spec:
+      containers:
+        - name: frontend # name of container
+          image: kubernetessuccinctly/remind-me-web:1.0.0
+          ports:
+            - containerPort: 80 # port on which the service is running
+              protocol: TCP
+---
+# Describe a service that consists of our web app pods
+apiVersion: v1
+kind: Service
+metadata:
+  name: remind-me-web-svc
+  labels:
+    app: remind-me-web-svc
+spec:
+  type: NodePort # type of service
+  ports:
+    - port: 8080 # any service in the same namespace can talk to this service using this port.
+      protocol: TCP
+      targetPort: 80 # our web application is running on this port in pod. By default, targetPort = port.
+      nodePort: 31120 # external users can access this service on port 31120 using kube-proxy.
+  selector:
+    app: remindmeweb

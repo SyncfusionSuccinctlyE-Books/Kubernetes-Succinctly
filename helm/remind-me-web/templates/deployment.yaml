@@ -1,0 +1,24 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ include "remind-me-web.fullname" . }}
+  labels:
+    name: {{ include "remind-me-web.name" . }}
+    helm.sh/chart: {{ include "remind-me-web.chart" . }}
+spec:
+  replicas: {{ .Values.replicaCount }} # substitute value of replica count from the value in Values.yaml file
+  selector:
+    matchLabels:
+      name: {{ include "remind-me-web.name" . }}
+  template:
+    metadata:
+      labels:
+        name: {{ include "remind-me-web.name" . }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }} # the substitution value of this parameter is present in Chart.yaml file
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP

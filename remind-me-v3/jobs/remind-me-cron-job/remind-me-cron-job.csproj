@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RootNamespace>remind_me_cron_job</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="RestSharp" Version="106.3.1"/>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2"/>
+  </ItemGroup>
+</Project>

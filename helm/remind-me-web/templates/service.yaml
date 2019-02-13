@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "remind-me-web.fullname" . }} # remind-me-web.fullname is defined in /templates/_helpers.tpl
+  labels:
+    name: {{ include "remind-me-web.name" . }}
+    helm.sh/chart: {{ include "remind-me-web.chart" . }}
+spec:
+  type: NodePort
+  ports:
+    - port: {{ .Values.service.port }} # Select port from parameter values defined in Values.yaml
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+      nodePort: {{ .Values.service.nodePort }}
+  selector:
+    name: {{ include "remind-me-web.name" . }}
+# problem: can't figure out what this will evaluate to?
+# {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}

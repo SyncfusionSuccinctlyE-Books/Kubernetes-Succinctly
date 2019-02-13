@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "remind-me-cron-job": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "apiUrl": "http://localhost:5003"
+      }
+    }
+  }
+}

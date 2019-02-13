@@ -1,0 +1,34 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+  <div class="form-container">
+    <div class="row columns">
+      <h1>
+        Add a Reminder
+      </h1>
+      <label>Title <input type="text" formControlName="title"></label>
+      <div class="errorMessage" *ngIf="!form.controls['title'].valid && form.controls['title'].touched">Title is
+        required.</div>
+      <label>Due Date <input type="date" formControlName="dueDate" min="{{minDate|date:'yyyy-MM-dd'}}"></label>
+      <div class="errorMessage" *ngIf="!form.controls['dueDate'].valid && form.controls['dueDate'].touched">Date is
+        required.</div>
+      <input type="submit" class="button expanded" value="Add" [disabled]="!form.valid">
+    </div>
+  </div>
+</form>
+<div class="form-container" *ngIf="reminders != null && reminders.length > 0">
+  <table class="stack">
+    <thead>
+      <tr>
+        <th width="70%">Title</th>
+        <th width="30%">Due Date</th>
+        <!-- <th width="20%"></th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let aReminder of reminders">
+        <td><b>{{aReminder.title}}</b></td>
+        <td>{{aReminder.dueDate|date:'yyyy-MM-dd'}}</td>
+        <!-- <td><input type="button" class="button alert tableButton" value="Delete"></td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>

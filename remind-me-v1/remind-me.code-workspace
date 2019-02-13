@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"cSpell.words": [
+			"Anim",
+			"Injectable",
+			"Kubernetes",
+			"Truthy",
+			"Validators",
+			"keyframes"
+		]
+	}
+}

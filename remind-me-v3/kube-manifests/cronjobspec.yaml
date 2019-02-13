@@ -1,0 +1,21 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: remindmejob
+spec:
+  schedule: '*/1 * * * *'
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: remindmejob
+              image: kubernetessuccinctly/remind-me-job:1.0.0
+              env:
+                - name: GET_HOSTS_FROM # This variable tells the service to find service host information from dns service. You can change this value to 'env' to query service hosts from environment variables.
+                  value: dns
+                - name: apiUrl # This environment variable is used by the application to connect to the API
+                  value: http://remindmeapi-statefulset-0.remind-me-api-svc.default.svc.cluster.local
+---
+

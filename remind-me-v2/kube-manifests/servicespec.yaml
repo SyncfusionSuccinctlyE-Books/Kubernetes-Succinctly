@@ -1,0 +1,88 @@
+# Define a PV
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: remind-me-api-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: hostpath
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: '/data'
+---
+# Define a PVC
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: remind-me-api-pv-claim
+spec:
+  storageClassName: hostpath
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+---
+# Create secret
+apiVersion: v1
+kind: Secret
+metadata:
+  name: api-secret
+data:
+  appsettings.secrets.json: 'eyJkYlBhdGgiOiAiL2RhdGEvcmVtaW5kZXIuZGIifQ==' # Base 64 encoding of: {"dbPath": "/data/reminder.db"}
+---
+# Describe a headless service that consists of our web api pods
+apiVersion: v1
+kind: Service
+metadata:
+  name: remind-me-api-svc
+  labels:
+    app: remind-me-api-svc
+spec:
+  ports:
+    - port: 8080 # service will accept traffic on port 8080
+      protocol: TCP
+      targetPort: 80 # traffic on port 8080 will be forwarded to port 80 of service
+  clusterIP: None # this makes it a Headless Service
+  selector:
+    app: remindmeapi
+---
+# Create a stateful set.
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: remindmeapi-statefulset # name of our stateful set
+spec:
+  serviceName: 'remind-me-api-svc' # domain name of stateful service
+  selector:
+    matchLabels:
+      app: remindmeapi # I'll deploy to all pods that have this label
+  replicas: 3 # run our app on 3 pods please!
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: remindmeapi # Label of the pods created by this template
+    spec:
+      containers:
+        - name: backend # name of container
+          imagePullPolicy: IfNotPresent
+          image: kubernetessuccinctly/remind-me-api:1.0.0
+          ports:
+            - containerPort: 80 # port on which the service is running
+              protocol: TCP
+          volumeMounts:
+            - name: localvolume
+              mountPath: /data
+            - name: secretvolume
+              mountPath: /app/secrets
+      volumes:
+        - name: localvolume
+          persistentVolumeClaim:
+            claimName: remind-me-api-pv-claim
+        - name: secretvolume
+          secret:
+            secretName: api-secret

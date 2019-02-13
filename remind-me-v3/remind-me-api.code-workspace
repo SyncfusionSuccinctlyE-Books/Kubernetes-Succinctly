@@ -1,0 +1,18 @@
+{
+  "folders": [
+    {
+      "path": "./api"
+    }
+  ],
+  "settings": {
+    "cSpell.words": [
+      "Anim",
+      "Injectable",
+      "Kubernetes",
+      "Truthy",
+      "Validators",
+      "keyframes"
+    ],
+    "cSpell.language": "en"
+  }
+}

@@ -1,0 +1,14 @@
+replicaCount: 2
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  port: 80
+  targetPort: 80
+  nodePort: 31120
+
+image:
+  repository: "kubernetessuccinctly/remind-me-web"
+  tag: "1.0.0"
+  
