@@ -1,6 +1,6 @@
-# Xamarin.Forms Succinctly
+# Kubernetes Succinctly
 
-This is the companion repo for [*Xamarin.Forms Succinctly*](https://www.syncfusion.com/ebooks/Xamarin_Forms_Succinctly) by Alessandro Del Sole. Published by Syncfusion.
+This is the companion repo for [*Kubernetes Succinctly*](https://www.syncfusion.com/ebooks/) by Rahul Rai and Tarun Pabbi. Published by Syncfusion.
 
 [![cover](https://github.com/SyncfusionSuccinctlyE-Books/Xamarin.Forms-Succinctly/blob/master/cover.png)](https://www.syncfusion.com/ebooks/Xamarin_Forms_Succinctly)
 
