@@ -8,6 +8,6 @@ entries:
       digest: 1f87a59caebe41ef671afab259a2d0d55e02f86747e39274178cfbeba9f82b72
       name: remind-me-web
       urls:
-        - https://raw.githubusercontent.com/Kubernetes-Succinctly/helmrepo/master/remind-me-web-0.1.0.tgz
+        - https://raw.githubusercontent.com/SyncfusionSuccinctlyE-Books/Kubernetes-Succinctly/blob/master/helmrepo/remind-me-web-0.1.0.tgz 
       version: 0.1.0
 generated: 2018-10-23T22:30:26.9376602+11:00
